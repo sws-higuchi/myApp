@@ -3,10 +3,11 @@ using myApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+//Render on a specific port if specified in the environment
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(10000); // Render が使うポート
+    options.ListenAnyIP(int.Parse(port));
 });
 
 // Add services to the container.
