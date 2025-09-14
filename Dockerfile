@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 10000
 
 COPY ./myApp/publish/ ./
 
-ENTRYPOINT ["dotnet", "MyApp.dll"]
+ENTRYPOINT ["dotnet", "myApp.dll"]

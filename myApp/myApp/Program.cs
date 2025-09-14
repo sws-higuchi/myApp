@@ -3,6 +3,12 @@ using myApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(10000); // Render が使うポート
+});
+
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
