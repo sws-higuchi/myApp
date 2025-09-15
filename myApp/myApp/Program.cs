@@ -4,6 +4,7 @@ using myApp.Components;
 var builder = WebApplication.CreateBuilder(args);
 
 //Render on a specific port if specified in the environment
+/*
 var port = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrEmpty(port))
 {
@@ -12,6 +13,15 @@ if (!string.IsNullOrEmpty(port))
         options.ListenAnyIP(int.Parse(port));
     });
 }
+*/
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(port));
+});
+
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
@@ -27,7 +37,7 @@ app.MapGet("/health", () => "OK");
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 }
 else
 {
@@ -36,7 +46,7 @@ else
     app.UseHsts();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
