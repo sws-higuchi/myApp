@@ -36,7 +36,13 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+var disableHttps = Environment.GetEnvironmentVariable("DISABLE_HTTPS_REDIRECT");
+// HTTPS リダイレクトは DISABLE_HTTPS_REDIRECT が true でない場合のみ有効
+if (string.IsNullOrEmpty(disableHttps))
+{
+    app.UseHttpsRedirection();
+}
+
 
 app.UseStaticFiles();
 app.UseAntiforgery();
