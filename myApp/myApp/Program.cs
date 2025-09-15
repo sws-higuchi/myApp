@@ -53,10 +53,10 @@ else
 var disableHttps = Environment.GetEnvironmentVariable("DISABLE_HTTPS_REDIRECT");
 var isHttpsDisabled = string.Equals(disableHttps, "true", StringComparison.OrdinalIgnoreCase);
 
-if (!isHttpsDisabled)
-{
-    app.UseHttpsRedirection();
-}
+//if (!isHttpsDisabled)
+//{
+//    app.UseHttpsRedirection();
+//}
 
 app.UseStaticFiles();
 app.UseAntiforgery();
