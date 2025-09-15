@@ -36,13 +36,15 @@ else
     app.UseHsts();
 }
 
+
+// Render 環境では HTTPS リダイレクトを無効化
 var disableHttps = Environment.GetEnvironmentVariable("DISABLE_HTTPS_REDIRECT");
-// HTTPS リダイレクトは DISABLE_HTTPS_REDIRECT が true でない場合のみ有効
-if (string.IsNullOrEmpty(disableHttps))
+var isHttpsDisabled = string.Equals(disableHttps, "true", StringComparison.OrdinalIgnoreCase);
+
+if (!isHttpsDisabled)
 {
     app.UseHttpsRedirection();
 }
-
 
 app.UseStaticFiles();
 app.UseAntiforgery();
