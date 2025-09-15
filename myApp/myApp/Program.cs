@@ -20,9 +20,21 @@ builder.Services.AddRazorComponents()
 
 var app = builder.Build();
 
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGet("/health", context =>
+    {
+        context.Response.StatusCode = 200;
+        return context.Response.WriteAsync("OK");
+    });
+});
+
+
 //Render a simple health check at /health
 //app.MapGet("/health", () => "OK");
-app.MapGet("/health", () => Results.Ok("OK"));
+//app.MapGet("/health", () => Results.Ok("OK"));
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
