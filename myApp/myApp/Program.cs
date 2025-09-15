@@ -27,6 +27,7 @@ app.MapGet("/health", () => "OK");
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseHttpsRedirection();
 }
 else
 {
@@ -35,7 +36,7 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
