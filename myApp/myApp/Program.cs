@@ -20,22 +20,6 @@ builder.Services.AddRazorComponents()
 
 var app = builder.Build();
 
-app.UseRouting();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapGet("/health", context =>
-    {
-        context.Response.StatusCode = 200;
-        return context.Response.WriteAsync("OK");
-    });
-});
-
-
-//Render a simple health check at /health
-//app.MapGet("/health", () => "OK");
-//app.MapGet("/health", () => Results.Ok("OK"));
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -43,20 +27,14 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
+    //Render a simple health check at /health
+    app.MapGet("/", () => "OK");
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
-
-// Render 環境では HTTPS リダイレクトを無効化
-var disableHttps = Environment.GetEnvironmentVariable("DISABLE_HTTPS_REDIRECT");
-var isHttpsDisabled = string.Equals(disableHttps, "true", StringComparison.OrdinalIgnoreCase);
-
-//if (!isHttpsDisabled)
-//{
-//    app.UseHttpsRedirection();
-//}
+app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
